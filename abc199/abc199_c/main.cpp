@@ -1,5 +1,3 @@
-// 自力で実装、AC
-
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -14,13 +12,27 @@ using ll = long long;
 #define all(x) (x).begin(), (x).end()
 
 int main() {
-	int h, w;
-	cin >> h >> w;
-	vector<vector<int>> a(h, vector<int>(w));
-	rep(i, h) rep(j, w) cin >> a[i][j];
-	vector<int> hsum(h), wsum(w);
-	rep(i, h) rep(j, w) hsum[i] += a[i][j];
-	rep(i, w) rep(j, h) wsum[i] += a[j][i];
-	rep(i, h) rep(j, w) cout << (hsum[i]+wsum[j]-a[i][j]) << (j<w-1?' ':'\n');
+	int n, q;
+	string s;
+	cin >> n >> s >> q;
+	bool flip = false;
+	rep(i, q) {
+		int ti, ai, bi;
+		cin >> ti >> ai >> bi;
+		if (ti == 1) {
+			if (flip) {
+				ai = (ai<=n) ? (ai + n) : (ai - n);
+				bi = (bi<=n) ? (bi + n) : (bi - n);
+			}
+			swap(s[ai-1], s[bi-1]);
+		}
+		else flip = !flip;
+	}
+	if (flip) {
+		string tmp = s.substr(n, n) + s.substr(0, n);
+		swap(tmp, s);
+	}
+	cout << s << endl;
 	return 0;
 }
+

@@ -1,5 +1,3 @@
-// 解説と実装を見てから実装
-
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -16,21 +14,15 @@ using ll = long long;
 int main() {
 	int n;
 	cin >> n;
-	if (n%2 != 0) {
-		cout << endl;
-		return 0;
+	vector<int> a(n), b(n);
+	rep(i, n) cin >> a[i];
+	rep(i, n) cin >> b[i];
+	int mxval = 0, mnval = (int)(1e9);
+	rep(i, n) {
+		mxval = max(mxval, a[i]);
+		mnval = min(mnval, b[i]);
 	}
-	rep(i, (1<<n)) {
-		string str;
-		repr(j, n) str += ((i&(1<<j)) == 0) ? '(' : ')';
-		bool ok = true;
-		int scnt = 0;
-		rep(j, n) {
-			scnt += (str[j] == '(') ? 1 : -1;
-			if (scnt < 0) ok = false;
-		}
-		if (scnt != 0) ok = false;
-		if (ok) cout << str << endl;
-	}
+	cout << max(0, (mnval-mxval+1)) << endl;
 	return 0;
 }
+
