@@ -11,6 +11,8 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+const double EPS = (1e-7);
+
 int main() {
 	int k;
 	ll n, m;
@@ -20,28 +22,28 @@ int main() {
 	vector<ll> b(k);
 	ll bsum = 0;
 	rep(i, k) {
-		b[i] = (a[i] * m + 0.5+(1e-7)) / n;
+		b[i] = (a[i] * m + 0.5+EPS) / n;
 		bsum += b[i];
 	}
 	if (bsum > m) {
 		priority_queue<pair<pair<double, double>, int>> que;
-		rep(i, k) que.emplace(pair<double,double>(-fabs((double)(b[i]-1)/m-(double)a[i]/n),(double)b[i]/m-(double)a[i]/n), i);
+		rep(i, k) que.emplace(pair<double,double>(-fabs((double)(b[i]-1+EPS)/m-(double)(a[i]+EPS)/n),(double)(b[i]+EPS)/m-(double)(a[i]+EPS)/n), i);
 		for (ll i=bsum; i>m; --i) {
 			auto p = que.top(); que.pop();
 			while (b[p.second] <= 0) {
 				p = que.top(); que.pop();
 			}
 			b[p.second]--;
-			que.emplace(pair<double,double>(-fabs((double)(b[p.second]-1)/m-(double)a[p.second]/n),(double)b[p.second]/m-(double)a[p.second]/n), p.second);
+			que.emplace(pair<double,double>(-fabs((double)(b[p.second]-1+EPS)/m-(double)(a[p.second]+EPS)/n),(double)(b[p.second]+EPS)/m-(double)(a[p.second]+EPS)/n), p.second);
 		}
 	}
 	else if (bsum < m) {
 		priority_queue<pair<pair<double,double>, int>, vector<pair<pair<double,double>, int>>, greater<pair<pair<double,double>, int>>> que;
-		rep(i, k) que.emplace(pair<double,double>(fabs((double)(b[i]+1)/m-(double)a[i]/n),(double)b[i]/m-(double)a[i]/n), i);
+		rep(i, k) que.emplace(pair<double,double>(fabs((double)(b[i]+1+EPS)/m-(double)(a[i]+EPS)/n),(double)(b[i]+EPS)/m-(double)(a[i]+EPS)/n), i);
 		for (ll i=bsum; i<m; ++i) {
 			auto p = que.top(); que.pop();
 			b[p.second]++;
-			que.emplace(pair<double,double>(fabs((double)(b[p.second]+1)/m-(double)a[p.second]/n),(double)b[p.second]/m-(double)a[p.second]/n), p.second);
+			que.emplace(pair<double,double>(fabs((double)(b[p.second]+1+EPS)/m-(double)(a[p.second]+EPS)/n),(double)(b[p.second]+EPS)/m-(double)(a[p.second]+EPS)/n), p.second);
 		}
 	}
 	rep(i, k) printf("%lld%c", b[i], (i<k-1?' ':'\n'));
