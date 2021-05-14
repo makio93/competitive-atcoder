@@ -11,7 +11,7 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-// バチャ中に作成
+// 解法を一部だけ見て実装、引き算式の分母を払って整数にしてみる、AC
 
 int main() {
 	int k;
@@ -22,28 +22,28 @@ int main() {
 	vector<ll> b(k);
 	ll bsum = 0;
 	rep(i, k) {
-		b[i] = ((ll)a[i] * m + 0.5) / n;
+		b[i] = (a[i] * m + 0.5) / n;
 		bsum += b[i];
 	}
 	if (bsum > m) {
-		priority_queue<pair<double, int>> que;
-		rep(i, k) que.emplace((double)b[i]/m-(double)a[i]/n, i);
+		priority_queue<pair<pair<ll, ll>, int>> que;
+		rep(i, k) que.emplace(pair<ll,ll>(-llabs((ll)(b[i]-1)*n-(ll)a[i]*m),(ll)b[i]*n-(ll)a[i]*m), i);
 		for (ll i=bsum; i>m; --i) {
 			auto p = que.top(); que.pop();
 			while (b[p.second] <= 0) {
 				p = que.top(); que.pop();
 			}
 			b[p.second]--;
-			que.emplace((double)b[p.second]/m-(double)a[p.second]/n, p.second);
+			que.emplace(pair<ll,ll>(-llabs((ll)(b[p.second]-1)*n-(ll)a[p.second]*m),(ll)b[p.second]*n-(ll)a[p.second]*m), p.second);
 		}
 	}
 	else if (bsum < m) {
-		priority_queue<pair<double, int>, vector<pair<double, int>>, greater<pair<double, int>>> que;
-		rep(i, k) que.emplace((double)b[i]/m-(double)a[i]/n, i);
+		priority_queue<pair<pair<ll, ll>, int>, vector<pair<pair<ll, ll>, int>>, greater<pair<pair<ll, ll>, int>>> que;
+		rep(i, k) que.emplace(pair<ll,ll>(llabs((ll)(b[i]+1)*n-(ll)a[i]*m),(ll)b[i]*n-(ll)a[i]*m), i);
 		for (ll i=bsum; i<m; ++i) {
 			auto p = que.top(); que.pop();
 			b[p.second]++;
-			que.emplace((double)b[p.second]/m-(double)a[p.second]/n, p.second);
+			que.emplace(pair<ll,ll>(llabs((ll)(b[p.second]+1)*n-(ll)a[p.second]*m),(ll)b[p.second]*n-(ll)a[p.second]*m), p.second);
 		}
 	}
 	rep(i, k) printf("%lld%c", b[i], (i<k-1?' ':'\n'));

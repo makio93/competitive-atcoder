@@ -11,6 +11,8 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+// バチャ中に作成、提出
+
 const double EPS = (1e-7);
 
 int main() {
