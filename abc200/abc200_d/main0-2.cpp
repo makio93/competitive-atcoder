@@ -11,6 +11,8 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+// 本番提出コードをちょっと整えて出し直した
+
 bool dfs(vector<vector<int>>& res, vector<int>& a, vector<set<vector<int>>>& blst, int d=0) {
 	int n = a.size();
 	if (d == n) return false;
@@ -58,16 +60,5 @@ int main() {
 		}
 	}
 	else cout << "No" << endl;
-	/*
-	{
-		rep(i, 200) if (!blst[i].empty()) {
-			for (auto v : blst[i]) {
-				int n2 = v.size();
-				rep(j, n2) printf("%d%c", v[j], (j<n2-1?' ':'\n'));
-			}
-			cout << endl;
-		}
-	}
-	*/
 	return 0;
 }
