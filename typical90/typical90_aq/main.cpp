@@ -11,6 +11,8 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+// 自力で作成、AC済
+
 const int INF = (int)(1e9);
 
 int main() {
