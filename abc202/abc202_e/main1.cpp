@@ -11,6 +11,8 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+// 解説を見てから実装、AC
+
 vector<vector<int>> g, dl;
 vector<int> in, out, dep;
 int times;
