@@ -11,22 +11,25 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+// 本番中に作成1、書いただけ、ローカルテスト用
+
 const int INF = (int)(1e9);
 
-//vector<vector<int>> orih, oriv;
+vector<vector<int>> orih, oriv;
 
 vector<vector<vector<int>>> dist;
+pair<int, int> ps, pt;
 
-void change(int pres, pair<int, int> ps, pair<int, int> pt, int plen) {
-	int pdist = abs(pt.first-ps.first) + abs(pt.second-ps.second), cdist = (pdist * 3 + plen + 2) / 4;
-	int ndist = (int)round((pres+0.5)/cdist);
-	pair<int, int> fir = { ps.first, pt.first }, sec = { ps.second, pt.second };
-	if (fir.first > fir.second) swap(fir.first, fir.second);
+void change(int pres) {
+	int mdist = abs(pt.first-ps.first) + abs(pt.second-ps.second), ndist = (int)round((pres+0.5)/mdist);
+	pair<int, int> sec = { ps.second, pt.second };
 	if (sec.first > sec.second) swap(sec.first, sec.second);
-	rep3(i, fir.first, fir.second+1) rep3(j, sec.first, sec.second+1) {
-		if (i < fir.second) dist[i][j][0] = (dist[i][j][0] + ndist + 1) / 2;
-		if (j < sec.second) dist[i][j][1] = (dist[i][j][1] + ndist + 1) / 2;
+	/*
+	rep3(i, ps.first, pt.first+1) rep3(j, sec.first, sec.second+1) {
+		if (i < pt.first) dist[i][j][0] = (dist[i][j][0] + ndist) / 2;
+		if (j < sec.second) dist[i][j][1] = (dist[i][j][1] + ndist) / 2;
 	}
+	*/
 }
 
 using pqd = pair<pair<int, char>, pair<int, int>>;
@@ -85,7 +88,6 @@ string query(pair<int, int> s, pair<int, int> t) {
 	return res;
 }
 
-/*
 int calc(pair<int, int> s, pair<int, int> t, string rstr) {
 	pair<int, int> v = s;
 	int res = 0;
@@ -109,31 +111,24 @@ int calc(pair<int, int> s, pair<int, int> t, string rstr) {
 	}
 	return res;
 }
-*/
 
 int main() {
-	/*
 	orih = vector<vector<int>>(30, vector<int>(29));
 	oriv = vector<vector<int>>(29, vector<int>(30));
 	rep(i, 30) rep(j, 29) cin >> orih[i][j];
 	rep(i, 29) rep(j, 30) cin >> oriv[i][j];
-	*/
 	dist = vector<vector<vector<int>>>(30, vector<vector<int>>(30, vector<int>(2, 5000)));
-	int pres = 0, plen = 0;
-	pair<int, int> ps, pt;
+	int pres = 0;
 	rep(k, 1000) {
-		//int si, sj, ti, tj;
-		//int ai; double ei;
-		//cin >> si >> sj >> ti >> tj >> ai >> ei;
-		int si, sj, ti, tj;
-		cin >> si >> sj >> ti >> tj;
-		if (k-1 >= 0) change(pres, {si,sj}, {ti,tj}, plen);
+		int si, sj, ti, tj, ai;
+		double ei;
+		cin >> si >> sj >> ti >> tj >> ai >> ei;
+		if (k-1 >= 0) change(pres);
 		string res = query({si, sj}, {ti, tj});
 		cout << res << endl;
 		cout.flush();
-		cin >> pres;
-		//pres = calc({si,sj}, {ti,tj}, res);
-		plen = (int)(res.length());
+		pres = calc({si,sj}, {ti,tj}, res);
+		//cin >> pres;
 		ps = { si, sj }, pt = { ti, tj };
 	}
 	return 0;
