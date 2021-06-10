@@ -11,7 +11,7 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-// 自力で解答、WA
+// 自力AC
 
 const ll BIAS = (ll)(1e9);
 
@@ -23,14 +23,15 @@ int main() {
 		cin >> x[i] >> y[i];
 		x[i] += BIAS; y[i] += BIAS;
 	}
-	vector<ll> d(n), rd(n);
-	rep(i, n) d[i] = rd[i] = (ll)(x[i]+y[i]);
-	sort(all(rd));
+	vector<ll> ad(n), adr(n), bd(n), bdr(n);
+	rep(i, n) ad[i] = adr[i] = (ll)(x[i]+y[i]);
+	rep(i, n) bd[i] = bdr[i] = (ll)(x[i]-y[i]);
+	sort(all(adr)); sort(all(bdr));
 	rep(i, q) {
 		int qi;
 		cin >> qi;
 		--qi;
-		ll res = max(llabs(rd.front()-d[qi]), llabs(rd.back()-d[qi]));
+		ll res = max({llabs(adr[0]-ad[qi]), llabs(adr[n-1]-ad[qi]), llabs(bdr[0]-bd[qi]), llabs(bdr[n-1]-bd[qi])});
 		cout << res << endl;
 	}
 	return 0;
