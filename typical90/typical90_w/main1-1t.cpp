@@ -9,29 +9,29 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-// 解説ACしたソースをstring型にして提出して実験、ギリギリAC
+// 実験目的、解説ACしたソースからvector->mapにするとTLEになる
 
 const ll mod = (ll)(1e9) + 7;
 
 int h, w;
 vector<int> lcnt;
-vector<unordered_map<string, int>> stoid;
-vector<vector<string>> idtos;
-vector<vector<bool>> idtot;
+vector<unordered_map<int, int>> stoid;
+vector<unordered_map<int, int>> idtos;
+vector<unordered_map<int, bool>> idtot;
 
-bool isok(int spos, int dep, string s) {
+bool isok(int spos, int dep, int s) {
     int y = (spos + dep) / w, x = (spos + dep) % w;
     const vector<int> dy = { -1, -1, -1, 0 }, dx = { -1, 0, 1, -1 }, did = { -w-1, -w, -w+1, -1 };
     rep(i, 4) {
         int ny = y + dy[i], nx = x + dx[i], nid = dep + did[i];
         if (ny<0 || nx<0 || nx>=w) continue;
         if (nid < 0) continue;
-        if (s[nid] == '1') return false;
+        if ((s>>nid) & 1) return false;
     }
     return true;
 }
 
-void init(int spos, int dep=0, string s="") {
+void init(int spos, int dep=0, int s=0) {
     if (dep == w+1) {
         int idcnt = lcnt[spos];
         stoid[spos][s] = idcnt;
@@ -41,8 +41,8 @@ void init(int spos, int dep=0, string s="") {
         return;
     }
     else {
-        init(spos, dep+1, s+'0');
-        if (isok(spos, dep, s)) init(spos, dep+1, s+'1');
+        init(spos, dep+1, s);
+        if (isok(spos, dep, s)) init(spos, dep+1, s+(1<<dep));
         return;
     }
 }
@@ -52,18 +52,18 @@ int main() {
     vector<string> c(h);
     rep(i, h) cin >> c[i];
     lcnt = vector<int>(w);
-    stoid = vector<unordered_map<string, int>>(w);
-    idtos = vector<vector<string>>(w, vector<string>((int)(2.3e5)));
-    idtot = vector<vector<bool>>(w, vector<bool>((int)(2.3e5)));
+    stoid = vector<unordered_map<int, int>>(w);
+    idtos = vector<unordered_map<int, int>>(w);
+    idtot = vector<unordered_map<int, bool>>(w);
     rep(i, w) init(i);
-    vector<vector<int>> to0(w, vector<int>((int)(2.3e5))), to1(w, vector<int>((int)(2.3e5)));
+    vector<unordered_map<int, int>> to0(w), to1(w);
     rep(i, w) rep(j, lcnt[i]) {
         int ni = (i + 1) % w;
-        string tsi0 = idtos[i][j].substr(1) + '0';
+        int tsi0 = (idtos[i][j] >> 1);
         int nid0 = stoid[ni][tsi0];
         to0[i][j] = nid0;
         if (idtot[i][j]) {
-            string tsi1 = idtos[i][j].substr(1) + '1';
+            int tsi1 = (idtos[i][j]>>1) + (1<<w);
             if (stoid[ni].find(tsi1) != stoid[ni].end()) {
                 int nid1 = stoid[ni][tsi1];
                 to1[i][j] = nid1;
@@ -72,8 +72,8 @@ int main() {
         }
         else to1[i][j] = -1;
     }
-    vector<vector<ll>> dp(h*w+1, vector<ll>((int)(2.3e5)));
-    dp[0][stoid[w-1][string(w+1,'0')]] = 1;
+    vector<unordered_map<int, ll>> dp(h*w+1);
+    dp[0][stoid[w-1][0]] = 1;
     rep(i, h*w) {
         int wi = (i+w-1) % w;
         rep(j, lcnt[wi]) {
