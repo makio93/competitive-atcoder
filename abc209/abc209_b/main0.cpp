@@ -11,16 +11,19 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-using mint = modint1000000007;
+// 本番AC
 
 int main() {
-	int n;
-	cin >> n;
-	vector<int> c(n);
-	rep(i, n) cin >> c[i];
-	sort(all(c));
-	mint res = 1;
-	rep(i, n) res *= c[i] - i;
-	cout << res.val() << endl;
+	int n, x;
+	cin >> n >> x;
+	vector<int> a(n);
+	rep(i, n) {
+		cin >> a[i];
+		if ((i+1)%2 == 0) a[i]--;
+	}
+	int sum = 0;
+	rep(i, n) sum += a[i];
+	if (sum <= x) cout << "Yes" << endl;
+	else cout << "No" << endl;
 	return 0;
 }
