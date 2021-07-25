@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+//#include <atcoder/all>
+using namespace std;
+//using namespace atcoder;
+
+using ll = long long;
+
+#define rep(i, n) for (int i=0; i<(int)(n); ++(i))
+#define rep3(i, m, n) for (int i=(m); (i)<(int)(n); ++(i))
+#define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
+#define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
+#define all(x) (x).begin(), (x).end()
+
+// 本番AC
+
+const ll mod = (ll)(1e9) + 7;
+const string tar = "chokudai";
+
+int main() {
+	string s;
+	cin >> s;
+	int n = s.length();
+	vector<vector<ll>> dp(n+1, vector<ll>(9));
+	dp[0][0] = 1;
+	rep(i, n) rep(j, 9) {
+		if (j>=1 && s[i]==tar[j-1]) dp[i+1][j] = (dp[i+1][j] + dp[i][j-1]) % mod;
+		dp[i+1][j] = (dp[i+1][j] + dp[i][j]) % mod;
+	}
+	cout << dp[n][8] << endl;
+	return 0;
+}
