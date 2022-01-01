@@ -11,7 +11,7 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-// 
+// 解説AC
 
 unordered_map<ll, ll> memo;
 ll calc(vector<ll>& a, ll x, int id=0) {
