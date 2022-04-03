@@ -1,4 +1,4 @@
-// 本番後,自力TLE
+// 復習,解説,作成途中
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -24,16 +24,20 @@ int main() {
 	rep(i, h) rep(j, w) cin >> a[i][j];
 	vector<vector<ll>> sum(h+1, vector<ll>(w+1));
 	rep(i, h) rep(j, w) sum[i+1][j+1] += a[i][j] + sum[i+1][j] + sum[i][j+1] - sum[i][j];
-	ll res = 0;
-	rep(i, h-h1+1) rep(j, w-w1+1) {
-		ll val1 = sum[i+h1][j+w1] - sum[i+h1][j] - sum[i][j+w1] + sum[i][j];
-		ll mval = INF;
-		rep(i2, h1-h2+1) rep(j2, w1-w2+1) {
-			ll val2 = sum[i+i2+h2][j+j2+w2] - sum[i+i2+h2][j+j2] - sum[i+i2][j+j2+w2] + sum[i+i2][j+j2];
-			mval = min(mval, val1-val2);
+	vector<vector<ll>> Taka(h-h1+1, vector<ll>(w-w1+1)), Aoki(h-h2+1, vector<ll>(w-w2+1));
+	rep3(i, h1, h+1) rep3(j, w1, w+2) Taka[i-1][j-1] = sum[i][j] - sum[i][j-w1] - sum[i-h1][j] + sum[i-h1][j-w1];
+	rep3(i, h2, h+1) rep3(j, w2, w+2) Aoki[i-1][j-1] = sum[i][j] - sum[i][j-w2] - sum[i-h2][j] + sum[i-h2][j-w2];
+	vector<vector<ll>> mvals(h-h1+1, vector<ll>(w-w1+1));
+	rep(i, h-h1+1) {
+		int k = w1 - w2;
+		rep(j, w-w1+1) mvals[i][j] = Aoki[i][j];
+		for (int j2=0; k>0; ++j2) {
+			if (k&1) {
+				int len = (1<<j2);
+				rep(j, w-w1+1) mvals[i][j] = max(mvals[i][j], Aoki[i][j+len]);
+			}
+			k /= 2;
 		}
-		res = max(res, mval);
 	}
-	cout << res << endl;
 	return 0;
 }
