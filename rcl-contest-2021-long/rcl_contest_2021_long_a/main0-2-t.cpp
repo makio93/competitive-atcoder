@@ -1,4 +1,4 @@
-// rcl-contest-2021-long:本番2
+// rcl-contest-2021-long:本番2-t
 
 #include <bits/stdc++.h>
 //#include <atcoder/all>
@@ -86,6 +86,6 @@ int main() {
 		int rlen = res.size();
 		rep(j, rlen) printf("%d%c", res[j], (j<rlen-1?' ':'\n'));
 	}
-	//cout << "score: " << nval << endl;
+	cout << "score: " << nval << endl;
 	return 0;
 }
