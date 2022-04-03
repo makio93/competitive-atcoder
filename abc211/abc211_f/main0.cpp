@@ -1,4 +1,4 @@
-// 解説AC
+// 本番中,未完成
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -14,12 +14,6 @@ using ll = long long;
 #define all(x) (x).begin(), (x).end()
 
 int main() {
-	vector<string> s(4);
-	rep(i, 4) cin >> s[i];
-	rep(i, 4) rep3(j, i+1, 4) if (s[i] == s[j]) {
-		cout << "No" << endl;
-		return 0;
-	}
-	cout << "Yes" << endl;
+
 	return 0;
 }

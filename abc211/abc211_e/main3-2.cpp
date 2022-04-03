@@ -1,3 +1,5 @@
+// 解説AC3-2(個数カウント変数を戻り値にしない)
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -9,8 +11,6 @@ using ull = unsigned long long;
 #define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
-
-// 解説AC3-2(個数カウント変数を戻り値にしない)
 
 int n;
 vector<string> s;
