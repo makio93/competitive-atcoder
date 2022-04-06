@@ -1,4 +1,4 @@
-// 復習1,解説1
+// 解説AC
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -23,28 +23,32 @@ int main() {
 	}
 	cin >> q;
 	vector<int> l(q), r(q);
-	rep(i, q) { cin >> l[i] >> r[i]; l[i]--; }
-	int bk = max(1, n/(int)(round(sqrt((double)q))));
-	vector<int> qid(q);
-	iota(all(qid), 0);
-	sort(all(qid), [&](int i, int j){
-		if (r[i]/bk != r[j]/bk) return r[i]/bk < r[j]/bk;
+	rep(i, q) {
+		cin >> l[i] >> r[i];
+		l[i]--;
+	}
+	int b = max(1, (int)(n/sqrt(q)));
+	vector<int> qis(q);
+	iota(all(qis), 0);
+	sort(all(qis), [&](int i, int j) {
+		int di = l[i]/b, dj = l[j]/b;
+		if (di == dj) return r[i] < r[j];
 		else return l[i] < l[j];
 	});
-	int vl = 0, vr = 0, res = 0;
-	vector<int> cnt(n);
-	auto add = [&](int id, int di=1) -> void {
-		res -= cnt[a[id]] / 2;
-		cnt[a[id]] += di;
-		res += cnt[a[id]] / 2;
-	};
 	vector<int> ans(q);
+	int lp = 0, rp = 0, res = 0;
+	vector<int> cnt(n);
+	auto add = [&](int val, int sub=1) -> void {
+		res -= cnt[a[val]] / 2;
+		cnt[a[val]] += sub;
+		res += cnt[a[val]] / 2;
+	};
 	rep(i, q) {
-		while (vr < r[qid[i]]) add(vr), ++vr;
-		while (vl < l[qid[i]]) add(vl, -1), ++vl;
-		while (vl > l[qid[i]]) --vl, add(vl);
-		while (vr > r[qid[i]]) --vr, add(vr, -1);
-		ans[qid[i]] = res;
+		while (rp < r[qis[i]]) add(rp), ++rp;
+		while (lp < l[qis[i]]) add(lp, -1), ++lp;
+		while (lp-1 >= l[qis[i]]) --lp, add(lp);
+		while (rp-1 >= r[qis[i]]) --rp, add(rp, -1);
+		ans[qis[i]] = res;
 	}
 	rep(i, q) printf("%d\n", ans[i]);
 	return 0;
