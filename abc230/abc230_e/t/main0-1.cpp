@@ -1,4 +1,4 @@
-// 練習
+// 練習1
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -12,18 +12,16 @@ using ll = long long;
 #define all(x) (x).begin(), (x).end()
 
 int main() {
-    int n, k;
-    cin >> n >> k;
-    vector<ll> a(n);
-    rep(i, n) cin >> a[i];
-    ll l = 1, r = (ll)(1e18);
-    while (r-l > 1) {
-        ll c = l + (r-l) / 2;
-        ll sum = 0;
-        rep(i, n) sum += min(c, a[i]);
-        if (sum/k >= c) l = c;
-        else r = c;
+    ll n;
+    cin >> n;
+    ll rn = max(1LL, (ll)sqrt(n));
+    ll lmx = n / rn;
+    ll sum = 0;
+    for (ll i=1; i<=lmx; ++i) sum += n / i;
+    for (ll i=rn-1; i>=1; --i) {
+        ll cnt = (n / i) - (n / (i+1));
+        sum += i * cnt;
     }
-    cout << l << endl;
+    cout << sum << endl;
     return 0;
 }
