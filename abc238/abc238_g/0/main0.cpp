@@ -1,3 +1,5 @@
+// 終了後,自力解答,WA(RE)
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -10,8 +12,6 @@ using ll = long long;
 #define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
-
-// 終了後,自力解答,WA(RE)
 
 const int AMAX = (int)(1e6) + 5;
 
