@@ -1,4 +1,4 @@
-// 
+// 学習1回目,自力AC
 
 #include <bits/stdc++.h>
 #include <atcoder/all>

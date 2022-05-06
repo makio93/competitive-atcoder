@@ -1,4 +1,4 @@
-// 解説での誤解法,WAになる
+// 学習1回目,解説での誤解法,WAになる
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
