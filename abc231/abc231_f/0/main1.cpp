@@ -1,3 +1,5 @@
+// 解説AC1,ジャッジシステム提出時のみAC
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -10,8 +12,6 @@ using ll = long long;
 #define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
-
-// 解説AC1,ジャッジシステム提出時のみAC
 
 auto op = [](ll v1, ll v2) -> ll { return v1+v2; };
 auto e = []() -> ll { return 0LL; };
