@@ -1,3 +1,5 @@
+// 本番WA1
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -10,8 +12,6 @@ using ll = long long;
 #define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
-
-// 本番WA2
 
 int main() {
 	int n, m;
@@ -40,13 +40,13 @@ int main() {
 		cout << -1 << endl;
 		return 0;
 	}
-	vector<int> pd(n);
+	vector<int> res;
 	rep(i, n) if (p[i] != i) {
 		vector<int> dist(n, (int)(1e9));
 		queue<int> que;
+		int tarv = -1;
 		dist[i] = 0;
 		que.push(i);
-		int dval = (int)(1e9);
 		while (!que.empty()) {
 			int vi = que.front(); que.pop();
 			int di = dist[vi], nd = di + 1;
@@ -55,32 +55,6 @@ int main() {
 				if (dist[ti] <= nd) continue;
 				dist[ti] = nd;
 				if (p[ti] == i) {
-					dval = min(dval, nd);
-					continue;
-				}
-				que.push(ti);
-			}
-		}
-		pd[i] = dval;
-	}
-	vector<pair<int, int>> pdlst(n);
-	rep(i, n) pdlst[i] = { pd[i], i };
-	sort(pdlst.rbegin(), pdlst.rend());
-	vector<int> res;
-	rep(i, n) if (p[pdlst[i].second] != pdlst[i].second) {
-		vector<int> dist(n, (int)(1e9));
-		queue<int> que;
-		int tarv = -1;
-		dist[pdlst[i].second] = 0;
-		que.push(pdlst[i].second);
-		while (!que.empty()) {
-			int vi = que.front(); que.pop();
-			int di = dist[vi], nd = di + 1;
-			for (auto pi : g[vi]) {
-				int ti = pi.first;
-				if (dist[ti] <= nd) continue;
-				dist[ti] = nd;
-				if (p[ti] == pdlst[i].second) {
 					tarv = ti;
 					continue;
 				}
@@ -88,7 +62,7 @@ int main() {
 			}
 		}
 		int vpos = tarv;
-		while (vpos != pdlst[i].second) {
+		while (vpos != i) {
 			int di = dist[vpos], nd = di - 1;
 			for (auto pi : g[vpos]) if (dist[pi.first] == nd) {
 				res.push_back(pi.second+1);
