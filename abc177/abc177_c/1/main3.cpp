@@ -1,9 +1,7 @@
-// 本番AC
+// 学習1回目,解説AC3
 
 #include <bits/stdc++.h>
 using namespace std;
-
-const long long mod = 1e9 + 7;
 
 using ll = long long;
 using pii  = pair<int, int>;
@@ -39,13 +37,17 @@ using pll = pair<ll, ll>;
 ull gcd(ull a, ull b) { return b ? gcd(b, a % b) : a; }
 ull lcm(ull a, ull b) { return a / gcd(a, b) * b; }
 
-const string YES = "Yes";
-const string NO = "No";
+const long long mod = 1000000007;
 
 int main(){
-    int d, t, s;
-    cin >> d >> t >> s;
-    if ((d+s-1)/s <= t) cout << YES << endl;
-    else cout << NO << endl;
+    int n;
+    cin >> n;
+    vi a(n);
+    rep(i, n) cin >> a[i];
+    vi sum(n+1);
+    rep(i, n) sum[i+1] = (sum[i] + a[i]) % mod;
+    int ans = 0;
+    rep(i, n-1) ans = (ans + (ll)a[i] * (sum[n] - sum[i+1] + mod)) % mod;
+    cout << ans << endl;
     return 0;
 }

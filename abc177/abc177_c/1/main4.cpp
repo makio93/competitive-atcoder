@@ -1,9 +1,7 @@
-// 本番AC
+// 学習1回目,解説AC4
 
 #include <bits/stdc++.h>
 using namespace std;
-
-const long long mod = 1e9 + 7;
 
 using ll = long long;
 using pii  = pair<int, int>;
@@ -39,17 +37,20 @@ using pll = pair<ll, ll>;
 ull gcd(ull a, ull b) { return b ? gcd(b, a % b) : a; }
 ull lcm(ull a, ull b) { return a / gcd(a, b) * b; }
 
-const long long MOD = 1000000007;
+const long long mod = 1000000007;
 
 int main(){
     int n;
     cin >> n;
     vi a(n);
     rep(i, n) cin >> a[i];
-    vll sum(n+1);
-    rep(i, n) sum[i+1] = (sum[i] + a[i]) % MOD;
-    ll ans = 0;
-    rep(i, n) ans = (ans + sum[i] * a[i]) % MOD;
+    int sum = 0;
+    rep(i, n) sum = (sum + a[i]) % mod;
+    int ans = 0;
+    rep(i, n-1) {
+        sum = (sum - a[i] + mod) % mod;
+        ans = (ans + (ll)a[i] * sum) % mod;
+    }
     cout << ans << endl;
     return 0;
 }

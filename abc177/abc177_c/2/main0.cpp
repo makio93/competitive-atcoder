@@ -1,9 +1,7 @@
-// 本番AC
+// 学習2回目,自力AC
 
 #include <bits/stdc++.h>
 using namespace std;
-
-const long long mod = 1e9 + 7;
 
 using ll = long long;
 using pii  = pair<int, int>;
@@ -39,15 +37,17 @@ using pll = pair<ll, ll>;
 ull gcd(ull a, ull b) { return b ? gcd(b, a % b) : a; }
 ull lcm(ull a, ull b) { return a / gcd(a, b) * b; }
 
+const long long MOD = 1000000007;
+
 int main(){
-    string s, t;
-    cin >> s >> t;
-    int ans = INF;
-    for (int i=0; i+sz(t)<=sz(s); ++i) {
-        int cnt = 0;
-        rep(j, sz(t)) if (t[j] != s[i+j]) ++cnt;
-        ans = min(ans, cnt);
-    }
+    int n;
+    cin >> n;
+    vi a(n);
+    rep(i, n) cin >> a[i];
+    vll sum(n+1);
+    repr(i, n) sum[i] = (sum[i+1] + a[i]) % MOD;
+    ll ans = 0;
+    rep(i, n-1) ans = (ans + sum[i+1] * a[i] % MOD) % MOD;
     cout << ans << endl;
     return 0;
 }
