@@ -1,7 +1,9 @@
+// 本番AC
+
 #include <bits/stdc++.h>
-//include <atcoder/all>
+#include <atcoder/all>
 using namespace std;
-//using namespace atcoder;
+using namespace atcoder;
 
 using ll = long long;
 
@@ -16,11 +18,14 @@ int main() {
 	cin >> n;
 	vector<int> a(n);
 	rep(i, n) cin >> a[i];
-	map<int, int> acnt;
+	dsu d((int)(2e5)+1);
+	rep(i, n/2) {
+		d.merge(a[i], a[n-1-i]);
+	}
 	ll res = 0;
-	rep(i, n) {
-		acnt[a[i]]++;
-		res += (ll)(i+1) - acnt[a[i]];
+	auto dl = d.groups();
+	for (auto v : dl) if ((int)(v.size()) > 1) {
+		res += (int)(v.size()) - 1;
 	}
 	cout << res << endl;
 	return 0;
