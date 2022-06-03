@@ -1,3 +1,5 @@
+// 解説AC
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -11,10 +13,8 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-// 本番AC
-
+const ll mod = 998244353LL;
 using mint = modint998244353;
-
 struct combination {
 	vector<mint> fact, ifact;
 	combination(int n) : fact(n+1), ifact(n+1) {
@@ -33,25 +33,14 @@ int main() {
 	string s;
 	cin >> s;
 	int n = s.length();
-	sort(all(s));
-	vector<pair<char, int>> runs;
-	runs.emplace_back(s[0], 1);
-	rep3(i, 1, n) {
-		if (s[i] == runs.back().first) runs.back().second++;
-		else runs.emplace_back(s[i], 1);
-	}
-	combination cb(n+1);
-	int m = runs.size();
-	vector<vector<mint>> dp(m+1, vector<mint>(n+1));
+	combination cb(n*2);
+	vector<int> ccnt(26);
+	rep(i, n) ccnt[s[i]-'a']++;
+	vector<vector<mint>> dp(27, vector<mint>(n+1));
 	dp[0][0] = 1;
-	rep(i, m) rep(j, n+1) {
-		rep(j2, runs[i].second+1) {
-			if (j+j2 > n) break;
-			dp[i+1][j+j2] += dp[i][j] * cb(j+j2, j2);
-		}
-	}
+	rep(i, 26) rep(j, n+1) rep(k, min(j,ccnt[i])+1) dp[i+1][j] += dp[i][j-k] * cb(j, k);
 	mint res = 0;
-	rep3(i, 1, n+1) res += dp[m][i];
+	rep3(i, 1, n+1) res += dp[26][i];
 	cout << res.val() << endl;
 	return 0;
 }
