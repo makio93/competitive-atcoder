@@ -1,3 +1,5 @@
+// 本番AC
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -18,4 +20,3 @@ int main() {
 	else cout << "No" << endl;
 	return 0;
 }
-

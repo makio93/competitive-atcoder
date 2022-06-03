@@ -1,4 +1,4 @@
-// 解説を見てから実装、AC
+// 解説AC
 
 #include <bits/stdc++.h>
 #include <atcoder/all>

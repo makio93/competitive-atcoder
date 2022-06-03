@@ -1,4 +1,4 @@
-// 本番中に実装、WA
+// 本番WA
 
 #include <bits/stdc++.h>
 #include <atcoder/all>

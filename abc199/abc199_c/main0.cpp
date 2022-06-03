@@ -1,3 +1,5 @@
+// 本番AC
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -12,17 +14,27 @@ using ll = long long;
 #define all(x) (x).begin(), (x).end()
 
 int main() {
-	int n;
-	cin >> n;
-	vector<int> a(n), b(n);
-	rep(i, n) cin >> a[i];
-	rep(i, n) cin >> b[i];
-	int mxval = 0, mnval = (int)(1e9);
-	rep(i, n) {
-		mxval = max(mxval, a[i]);
-		mnval = min(mnval, b[i]);
+	int n, q;
+	string s;
+	cin >> n >> s >> q;
+	bool flip = false;
+	rep(i, q) {
+		int ti, ai, bi;
+		cin >> ti >> ai >> bi;
+		if (ti == 1) {
+			if (flip) {
+				ai = (ai<=n) ? (ai + n) : (ai - n);
+				bi = (bi<=n) ? (bi + n) : (bi - n);
+			}
+			swap(s[ai-1], s[bi-1]);
+		}
+		else flip = !flip;
 	}
-	cout << max(0, (mnval-mxval+1)) << endl;
+	if (flip) {
+		string tmp = s.substr(n, n) + s.substr(0, n);
+		swap(tmp, s);
+	}
+	cout << s << endl;
 	return 0;
 }
 
