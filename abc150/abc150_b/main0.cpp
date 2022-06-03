@@ -1,4 +1,4 @@
-// 
+// 自力AC
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -21,7 +21,6 @@ int main(){
     for (int i=0; i<n-2; i++) {
         if (s.substr(i, 3) == "ABC") ++count;
     }
-    cout << count <<endl;
+    cout << count << endl;
     return 0;
 }
-
