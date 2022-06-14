@@ -1,3 +1,5 @@
+// 本番終了後に実装、WA or TLE
+
 #pragma GCC target("avx")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
@@ -14,8 +16,6 @@ using ll = long long;
 #define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
-
-// 本番終了後に実装、WA or TLE
 
 constexpr int INF = (1e9) + 1;
 constexpr int rt = 750;
