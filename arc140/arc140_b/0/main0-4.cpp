@@ -1,4 +1,4 @@
-// 
+// 本番
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -40,19 +40,16 @@ int main() {
 		}
 	}
 	int res = even + odd;
-	if (even == odd+1) {
-		res = even + odd;
-		swap(s, t);
-		n = s.length();
-		t.clear();
-		rep(i, n) {
-			t.push_back(s[i]);
-			while ((int)(t.length())>=3 && t.substr((int)(t.length()-3),3)==string("ARC")) {
-				rep(j, 3) t.pop_back();
-				if (res%2 == 1) t += string("AC");
-				else t += string("R");
-				++res;
-			}
+	swap(s, t);
+	n = s.length();
+	t.clear();
+	rep(i, n) {
+		t.push_back(s[i]);
+		while ((int)(t.length())>=3 && t.substr((int)(t.length()-3),3)==string("ARC")) {
+			rep(j, 3) t.pop_back();
+			if (res%2 == 1) t += string("AC");
+			else t += string("R");
+			++res;
 		}
 	}
 	cout << res << endl;

@@ -1,4 +1,4 @@
-// 
+// 本番
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -21,17 +21,6 @@ int main() {
 	cin >> n >> s;
 	string st;
 	int res = 0;
-	rep(i, n) {
-		st.push_back(s[i]);
-		while ((int)(st.length())>=5 && st.substr((int)(st.length()-5),5)==string("AARCC")) {
-			rep(j, 4) st.pop_back();
-			st += string("C");
-			res += 2;
-		}
-	}
-	swap(s, st);
-	n = s.length();
-	st.clear();
 	rep(i, n) {
 		st.push_back(s[i]);
 		while ((int)(st.length())>=3 && st.substr((int)(st.length()-3),3)==string("ARC")) {
