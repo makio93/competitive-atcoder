@@ -1,3 +1,5 @@
+// 本番WA3
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -10,8 +12,6 @@ using ll = long long;
 #define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
-
-// 本番WA2
 
 const ll INF = (ll)(1.5e18);
 
@@ -31,9 +31,10 @@ int main() {
 	vector<ll> a(n);
 	rep(i, n) cin >> a[i];
 	ll res = calc(a, x);
-	repr(i, n) {
-		ll mval = x / a[i] * a[i] + a[i];
-		res = min(res, calc(a, mval)+calc(a, mval-x));
+	ll val = x;
+	rep(i, n-1) {
+		val = x / a[i+1] * a[i+1] + a[i+1];
+		res = min(res, calc(a, val)+calc(a, val-x));
 	}
 	cout << res << endl;
 	return 0;

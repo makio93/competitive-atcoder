@@ -1,3 +1,5 @@
+// 本番終了後,自力考察,解けない
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -10,8 +12,6 @@ using ll = unsigned long long;
 #define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
-
-// 本番終了後,自力考察,解けない
 
 int n;
 ll calc(vector<ll>& a, ll x) {
