@@ -29,7 +29,7 @@ int main() {
 		int res = 0;
 		if (d == n) {
 			if (per <= tar) return 1;
-			else return res;
+			else return -1;
 		}
 		rep(i, n) if (find(all(per), i) == per.end()) {
 			per[d] = i;
