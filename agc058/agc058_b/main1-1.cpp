@@ -1,4 +1,4 @@
-// 解説AC
+// 解説AC1-1
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -20,18 +20,14 @@ int main() {
 	cin >> n;
 	vector<int> p(n);
 	rep(i, n) cin >> p[i];
-	vector<vector<ll>> dp(n+1, vector<ll>(n+1));
-	dp[0][0] = 1;
+	vector<ll> dp(n+1);
+	dp[0] = 1;
 	rep(i, n) {
 		int li = i, ri = i;
-		while (li>=0 && p[li]<=p[i]) --li;
-		++li;
+		while (li-1>=0 && p[li-1]<=p[i]) --li;
 		while (ri<n && p[ri]<=p[i]) ++ri;
-		rep(j, n+1) {
-			if (j>=li && j<ri) dp[i+1][j+1] = (dp[i+1][j+1] + dp[i+1][j] + dp[i][j]) % mod;
-			dp[i+1][j] = (dp[i+1][j] + dp[i][j]) % mod;
-		}
+		rep(j, n) if (j>=li && j<ri) dp[j+1] = (dp[j+1] + dp[j]) % mod;
 	}
-	cout << dp[n][n] << endl;
+	cout << dp[n] << endl;
 	return 0;
 }
