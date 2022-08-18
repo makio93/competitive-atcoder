@@ -22,16 +22,16 @@ int main() {
 		deque<int> p(n);
 		rep(i, n) cin >> p[i];
 		vector<int> a;
-		set<pair<int, *deque<int>>> tar;
+		set<pair<int, deque<int>::iterator>> tar;
 		rep(i, n) tar.emplace(p[i], &p[i]);
 		rep(i, n) {
-			if (distance(tar.begin()->second,p.begin()) == tar.begin()->first-1) {
+			if (distance(tar.begin()->second, p.begin()) == tar.begin()->first-1) {
 				tar.erase(tar.begin());
 				continue;
 			}
 			int pval = -1, d = -1;
 			for (auto itr=tar.begin(); itr!=tar.end(); ++itr) {
-				if (distance(itr->second,p.begin())-1 == i) {
+				if (distance(itr->second, p.begin())-1 == i) {
 					pval = itr->first;
 					d = distance(itr->second, p.begin()) - 1;
 					tar.erase(itr);
