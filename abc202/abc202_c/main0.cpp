@@ -1,3 +1,5 @@
+// 本番AC
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -12,10 +14,16 @@ using ll = long long;
 #define all(x) (x).begin(), (x).end()
 
 int main() {
-	vector<int> abc(3);
-	rep(i, 3) cin >> abc[i];
-	int res = 0;
-	rep(i, 3) res += 7 - abc[i];
+	int n;
+	cin >> n;
+	vector<int> a(n), b(n), c(n);
+	rep(i, n) cin >> a[i];
+	rep(i, n) cin >> b[i];
+	rep(i, n) cin >> c[i];
+	vector<int> cnt(n+1);
+	rep(j, n) cnt[b[c[j]-1]]++;
+	ll res = 0;
+	rep(i, n) res += cnt[a[i]];
 	cout << res << endl;
 	return 0;
 }

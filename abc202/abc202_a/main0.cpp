@@ -1,3 +1,5 @@
+// 本番AC
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -12,13 +14,10 @@ using ll = long long;
 #define all(x) (x).begin(), (x).end()
 
 int main() {
-	string from = "01689", to = "01986";
-	string s, res;
-	cin >> s;
-	repr(i, (int)(s.length())) rep(j, 5) if (s[i] == from[j]) {
-		res += to[j];
-		break;
-	}
+	vector<int> abc(3);
+	rep(i, 3) cin >> abc[i];
+	int res = 0;
+	rep(i, 3) res += 7 - abc[i];
 	cout << res << endl;
 	return 0;
 }
