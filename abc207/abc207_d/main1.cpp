@@ -1,3 +1,5 @@
+// 解説AC
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,8 +10,6 @@ using ll = long long;
 #define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
-
-// 解説AC
 
 const double eps = (1e-6);
 

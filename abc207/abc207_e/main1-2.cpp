@@ -1,3 +1,5 @@
+// 解説AC2
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,8 +10,6 @@ using ll = long long;
 #define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
-
-// 解説AC、memo用配列を使わない遷移
 
 const ll mod = (ll)(1e9) + 7;
 
