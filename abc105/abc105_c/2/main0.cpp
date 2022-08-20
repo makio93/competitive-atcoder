@@ -1,4 +1,4 @@
-// 自力AC
+// 学習2回目,自力AC
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -16,23 +16,21 @@ using ll = long long;
 const int INF = (int)(1e9);
 
 int main() {
-	ll n;
+	int n;
 	cin >> n;
-	ll two = 1;
-	bool minus = false;
-	string s;
-	while (n != 0) {
-		if (abs(n)/two%2 == 1) {
-			s.push_back('1');
-			if (!minus) n -= two;
-			else n += two;
+	string res;
+	int two = 1;
+	while (n) {
+		if (abs(n)%2 == 1) {
+			n -= two;
+			res.push_back('1');
 		}
-		else s.push_back('0');
-		two *= 2;
-		minus = !minus;
+		else res.push_back('0');
+		n /= 2;
+		two *= -1;
 	}
-	if (s.empty()) s.push_back('0');
-	reverse(all(s));
-	cout << s << endl;
+	if (res.empty()) res.push_back('0');
+	reverse(all(res));
+	cout << res << endl;
 	return 0;
 }
