@@ -1,4 +1,4 @@
-// 学習1回目,自力AC
+// 学習2回目,自力AC
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -42,12 +42,9 @@ ull lcm(ull a, ull b) { return a / gcd(a, b) * b; }
 int main(){
     ll n, a, b;
     cin >> n >> a >> b;
-    --a; --b;
     if ((b-a)%2==0) cout << ((b-a)/2) << endl;
     else {
-        ll ans = (b-a) / 2;
-        ans += min(a, (n-1-b)) + 1;
-        cout << ans << endl;
+        cout << (min(a-1, n-b)+1+(b-a)/2) << endl;
     }
     return 0;
 }

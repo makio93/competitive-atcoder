@@ -1,4 +1,4 @@
-// 学習1回目,自力AC
+// 自力AC
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -40,14 +40,15 @@ ull gcd(ull a, ull b) { return b ? gcd(b, a % b) : a; }
 ull lcm(ull a, ull b) { return a / gcd(a, b) * b; }
 
 int main(){
-    ll n, a, b;
-    cin >> n >> a >> b;
-    --a; --b;
-    if ((b-a)%2==0) cout << ((b-a)/2) << endl;
-    else {
-        ll ans = (b-a) / 2;
-        ans += min(a, (n-1-b)) + 1;
-        cout << ans << endl;
+    int n, k;
+    cin >> n >> k;
+    vi r(n);
+    rep(i, n) cin >> r[i];
+    VSORT(r);
+    double ans = 0;
+    for (int i=n-k; i<n; ++i) {
+        ans = (ans + r[i]) / 2.0;
     }
+    printf("%.10f\n", ans);
     return 0;
 }

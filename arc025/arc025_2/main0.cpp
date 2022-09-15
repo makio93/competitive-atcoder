@@ -1,4 +1,4 @@
-// 学習1回目,自力AC
+// 自力AC
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -40,14 +40,27 @@ ull gcd(ull a, ull b) { return b ? gcd(b, a % b) : a; }
 ull lcm(ull a, ull b) { return a / gcd(a, b) * b; }
 
 int main(){
-    ll n, a, b;
-    cin >> n >> a >> b;
-    --a; --b;
-    if ((b-a)%2==0) cout << ((b-a)/2) << endl;
-    else {
-        ll ans = (b-a) / 2;
-        ans += min(a, (n-1-b)) + 1;
-        cout << ans << endl;
+    int h, w;
+    cin >> h >> w;
+    vector<vi> c(h, vi(w));
+    rep(i, h) rep(j, w) cin >> c[i][j];
+    vector<vi> sumb(h+1, vi(w+1)), sumw(h+1, vi(w+1));
+    rep(i, h) rep(j, w) {
+        if ((i+j)%2==0) {
+            sumb[i+1][j+1] = sumb[i+1][j] + sumb[i][j+1] - sumb[i][j] + c[i][j];
+            sumw[i+1][j+1] = sumw[i+1][j] + sumw[i][j+1] - sumw[i][j];
+        }
+        else {
+            sumw[i+1][j+1] = sumw[i+1][j] + sumw[i][j+1] - sumw[i][j] + c[i][j];
+            sumb[i+1][j+1] = sumb[i+1][j] + sumb[i][j+1] - sumb[i][j];
+        }
     }
+    int ans = 0;
+    rep(i, h) for (int i2=i+1; i2<=h; ++i2) rep(j, w) for (int j2=j+1; j2<=w; ++j2) {
+        int numb = sumb[i2][j2] - sumb[i2][j] - sumb[i][j2] + sumb[i][j];
+        int numw = sumw[i2][j2] - sumw[i2][j] - sumw[i][j2] + sumw[i][j];
+        if (numb == numw) ans = max(ans, (i2-i)*(j2-j));
+    }
+    cout << ans << endl;
     return 0;
 }

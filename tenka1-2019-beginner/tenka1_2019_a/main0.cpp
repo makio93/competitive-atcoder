@@ -1,4 +1,4 @@
-// 学習1回目,自力AC
+// 自力AC
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -39,15 +39,13 @@ using pll = pair<ll, ll>;
 ull gcd(ull a, ull b) { return b ? gcd(b, a % b) : a; }
 ull lcm(ull a, ull b) { return a / gcd(a, b) * b; }
 
+const string YES = "Yes";
+const string NO = "No";
+
 int main(){
-    ll n, a, b;
-    cin >> n >> a >> b;
-    --a; --b;
-    if ((b-a)%2==0) cout << ((b-a)/2) << endl;
-    else {
-        ll ans = (b-a) / 2;
-        ans += min(a, (n-1-b)) + 1;
-        cout << ans << endl;
-    }
+    int a, b, c;
+    cin >> a >> b >> c;
+    if ((a<c&&c<b) || (b<c&&c<a)) cout << YES << endl;
+    else cout << NO << endl;
     return 0;
 }

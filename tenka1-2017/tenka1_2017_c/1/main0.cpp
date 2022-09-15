@@ -40,14 +40,15 @@ ull gcd(ull a, ull b) { return b ? gcd(b, a % b) : a; }
 ull lcm(ull a, ull b) { return a / gcd(a, b) * b; }
 
 int main(){
-    ll n, a, b;
-    cin >> n >> a >> b;
-    --a; --b;
-    if ((b-a)%2==0) cout << ((b-a)/2) << endl;
-    else {
-        ll ans = (b-a) / 2;
-        ans += min(a, (n-1-b)) + 1;
-        cout << ans << endl;
+    ll ln;
+    cin >> ln;
+    for (ll h=1; h<=3500; ++h) for (ll n=1; n<=3500; ++n) {
+        ll den = 4*h*n - ln*n - ln*h, num = ln * h * n;
+        if (den == 0) continue;
+        if (num%den==0 && num/den>0) {
+            printf("%lld %lld %lld\n", h, n, num/den);
+            return 0;
+        }
     }
     return 0;
 }
