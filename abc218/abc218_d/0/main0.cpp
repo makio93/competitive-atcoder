@@ -15,9 +15,19 @@ using ll = long long;
 
 int main() {
 	int n;
-	string s;
-	cin >> n >> s;
-	if (s[n-1] == 'o') cout << "Yes" << endl;
-	else cout << "No" << endl;
+	cin >> n;
+	vector<int> x(n), y(n);
+	rep(i, n) cin >> x[i] >> y[i];
+	map<int, set<int>> xlst;
+	rep(i, n) xlst[x[i]].insert(y[i]);
+	map<pair<int, int>, ll> pcnt;
+	for (auto xl : xlst) {
+		for (auto litr=xl.second.begin(); litr!=xl.second.end(); ++litr) {
+			for (auto ritr=next(litr); ritr!=xl.second.end(); ++ritr) pcnt[{*litr,*ritr}]++;
+		}
+	}
+	ll res = 0;
+	for (auto p : pcnt) res += p.second * (p.second-1) / 2;
+	cout << res << endl;
 	return 0;
 }

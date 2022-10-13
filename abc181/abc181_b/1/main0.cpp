@@ -1,3 +1,5 @@
+// 学習1回目,バチャ本番AC
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -12,17 +14,14 @@ using ll = long long;
 #define all(x) (x).begin(), (x).end()
 
 int main() {
-	int n;
-	cin >> n;
-	vector<ll> a(n), s(n+1), m(n+1);
-	rep(i, n) cin >> a[i];
-	rep(i, n) s[i+1] = s[i] + a[i];
-	rep(i, n) m[i+1] = max(m[i], a[i]);
-	ll sum = 0;
-	rep(i, n) {
-		sum += s[i+1];
-		ll res = sum + m[i+1] * (i+1);
-		cout << res << endl;
-	}
-	return 0;
+    int n;
+    cin >> n;
+    ll res = 0;
+    rep(i, n) {
+        int ai, bi;
+        cin >> ai >> bi;
+        res += (ll)(ai+bi) * (bi-ai+1) / 2;
+    }
+    cout << res << endl;
+    return 0;
 }

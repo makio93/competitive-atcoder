@@ -1,9 +1,9 @@
 // 本番AC
 
 #include <bits/stdc++.h>
-//#include <atcoder/all>
+#include <atcoder/all>
 using namespace std;
-//using namespace atcoder;
+using namespace atcoder;
 
 using ll = long long;
 
@@ -15,9 +15,16 @@ using ll = long long;
 
 int main() {
 	int n;
-	string s;
-	cin >> n >> s;
-	if (s[n-1] == 'o') cout << "Yes" << endl;
-	else cout << "No" << endl;
+	cin >> n;
+	vector<ll> a(n), s(n+1), m(n+1);
+	rep(i, n) cin >> a[i];
+	rep(i, n) s[i+1] = s[i] + a[i];
+	rep(i, n) m[i+1] = max(m[i], a[i]);
+	ll sum = 0;
+	rep(i, n) {
+		sum += s[i+1];
+		ll res = sum + m[i+1] * (i+1);
+		cout << res << endl;
+	}
 	return 0;
 }

@@ -1,9 +1,9 @@
-// 本番AC
+// 学習1回目,解説AC1
 
 #include <bits/stdc++.h>
-//#include <atcoder/all>
+#include <atcoder/all>
 using namespace std;
-//using namespace atcoder;
+using namespace atcoder;
 
 using ll = long long;
 
@@ -14,10 +14,14 @@ using ll = long long;
 #define all(x) (x).begin(), (x).end()
 
 int main() {
-	int n;
-	string s;
-	cin >> n >> s;
-	if (s[n-1] == 'o') cout << "Yes" << endl;
-	else cout << "No" << endl;
-	return 0;
+    int n;
+    cin >> n;
+    ll res = 0;
+    rep(i, n) {
+        int ai, bi;
+        cin >> ai >> bi;
+        res += (ll)bi * (bi+1) / 2 - (ll)ai * (ai-1) / 2;
+    }
+    cout << res << endl;
+    return 0;
 }
