@@ -78,7 +78,7 @@ int main() {
 		}
 		else {
 			int ri = (i+1) - llen;
-			if (rlst[ri+1].second < 0) keys.insert(-rlst[ri+1].second);
+			if (rlst[ri].second < 0) keys.insert(-rlst[ri].second);
 		}
 	}
 	if (res == LINF) cout << -1 << endl;
