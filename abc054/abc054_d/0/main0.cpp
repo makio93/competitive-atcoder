@@ -1,4 +1,4 @@
-// 学習0回目,自力AC
+// 自力AC
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
