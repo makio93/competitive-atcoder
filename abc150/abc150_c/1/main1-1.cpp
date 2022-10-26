@@ -28,7 +28,6 @@ using pll = pair<ll, ll>;
 #define VSORT(v) sort(v.begin(), v.end());
 #define RSORT(x) sort(rall(x));
 #define pb push_back
-#define mp make_pair
 
 #define INF (1e9)
 #define PI (acos(-1))
@@ -43,17 +42,12 @@ int main(){
     vi p(n), q(n);
     rep(i, n) cin >> p[i];
     rep(i, n) cin >> q[i];
-    vi p2 = p, q2 = q;
-    VSORT(p2); VSORT(q2);
-    int a = 0, b = 0;
+    vi a(n);
+    rep(i, n) a[i] = i+1;
+    map<vi, int> mp;
     do {
-        ++a;
-        if (p2 == p) break;
-    } while (next_permutation(all(p2)));
-    do {
-        ++b;
-        if (q2 == q) break;
-    } while (next_permutation(all(q2)));
-    cout << abs(b-a) << endl;
+        mp[a] = mp.size();
+    } while (next_permutation(all(a)));
+    cout << abs(mp[p]-mp[q]) << endl;
     return 0;
 }

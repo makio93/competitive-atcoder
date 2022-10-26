@@ -37,23 +37,35 @@ using pll = pair<ll, ll>;
 ull gcd(ull a, ull b) { return b ? gcd(b, a % b) : a; }
 ull lcm(ull a, ull b) { return a / gcd(a, b) * b; }
 
+int n;
+vector<vi> a;
+vi now;
+void dfs(int d) {
+    if (d == n) {
+        a.pb(now);
+        return;
+    }
+    rep1(i, n) {
+        bool used = false;
+        rep(j, d) if (now[j] == i) used = true;
+        if (used) continue;
+        now[d] = i;
+        dfs(d+1);
+    }
+}
+
 int main(){
-    int n;
     cin >> n;
     vi p(n), q(n);
     rep(i, n) cin >> p[i];
     rep(i, n) cin >> q[i];
-    vi p2 = p, q2 = q;
-    VSORT(p2); VSORT(q2);
-    int a = 0, b = 0;
-    do {
-        ++a;
-        if (p2 == p) break;
-    } while (next_permutation(all(p2)));
-    do {
-        ++b;
-        if (q2 == q) break;
-    } while (next_permutation(all(q2)));
-    cout << abs(b-a) << endl;
+    now = vi(n);
+    dfs(0);
+    int pnum = 0, qnum = 0;
+    rep(i, sz(a)) {
+        if (a[i] == p) pnum = i;
+        if (a[i] == q) qnum = i;
+    }
+    cout << abs(pnum-qnum) << endl;
     return 0;
 }

@@ -1,4 +1,4 @@
-// 
+// 学習1,自力AC
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -13,19 +13,18 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-int main(){
-    int n;
-    cin >> n;
-    vector<int> p(n), q(n);
-    rep(i, n) cin >> p[i];
-    rep(i, n) cin >> q[i];
-    vector<int> a(n);
-    rep(i, n) a[i] = i + 1;
-    map<vector<int>, int> mp;
-    do {
-        mp[a] = mp.size();
-    } while (next_permutation(all(a)));
-    cout << abs(mp[p]-mp[q]) << endl;
-    return 0;
+int main() {
+	int n;
+	cin >> n;
+	vector<int> p(n), q(n);
+	rep(i, n) cin >> p[i];
+	rep(i, n) cin >> q[i];
+	if (p > q) swap(p, q);
+	int res = 0;
+	while (p != q) {
+		next_permutation(all(p));
+		++res;
+	}
+	cout << res << endl;
+	return 0;
 }
-

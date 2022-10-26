@@ -1,4 +1,4 @@
-// 学習1,解説AC,解法2
+// 
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -13,37 +13,39 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-int main() {
-	int n;
-	cin >> n;
-	vector<int> p(n), q(n);
-	rep(i, n) {
-		cin >> p[i];
-		p[i]--;
-	}
-	rep(i, n) {
-		cin >> q[i];
-		q[i]--;
-	}
-	auto dfs = [&](auto dfs, vector<int>& per, vector<int>& tar, int d=0) -> int {
-		int res = 0;
-		if (d == n) {
-			if (per <= tar) return 1;
-			else return -1;
-		}
-		rep(i, n) if (find(all(per), i) == per.end()) {
-			per[d] = i;
-			int rev = dfs(dfs, per, tar, d+1);
-			if (rev == -1) return res;
-			res += rev;
-			per[d] = -1;
-		}
-		return res;
-	};
-	vector<int> x(n, -1);
-	int a = dfs(dfs, x, p);
-	x = vector<int>(n, -1);
-	int b = dfs(dfs, x, q);
-	cout << abs(a-b) << endl;
-	return 0;
+int fact(int n) {
+    if (n == 0) return 0;
+    int ans = 1;
+    rep3r(i, 1, n+1) ans *= i;
+    return ans;
+}
+
+int main(){
+    int n;
+    cin >> n;
+    vector<int> p(n), q(n);
+    rep(i, n) cin >> p[i];
+    rep(i, n) cin >> q[i];
+    int a = 0, b = 0;
+    set<int> up, uq;
+    rep(i, n) {
+        int uNum = p[i] - 1;
+        int uTmpNum = uNum;
+        rep3(j, 1, uTmpNum+1) {
+            if (up.find(j)!=up.end()) --uNum;
+        }
+        a += uNum * fact((n-1)-i);
+        up.insert(p[i]);
+    }
+    rep(i, n) {
+        int uNum = q[i] - 1;
+        int uTmpNum = uNum;
+        rep3(j, 1, uTmpNum+1) {
+            if (uq.find(j)!=uq.end()) --uNum;
+        }
+        b += uNum * fact((n-1)-i);
+        uq.insert(q[i]);
+    }
+    cout << abs(a-b) << endl;
+    return 0;
 }
