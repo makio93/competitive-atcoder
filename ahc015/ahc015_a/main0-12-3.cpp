@@ -1,4 +1,4 @@
-// 自力
+// 
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -13,7 +13,8 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-const int INF = (int)(1e9);
+const ll INF = (ll)(1e18);
+const int rate = 3;
 
 const vector<char> rc = { 'F', 'R', 'B', 'L' };
 const vector<int> dy = { -1, 0, 1, 0 }, dx = { 0, 1, 0, -1 };
@@ -60,31 +61,50 @@ void lean(vector<vector<int>>& box, int rid) {
 	}
 	rep(i, (4-rid)%4) roll(box);
 }
-pair<int, int> next_direction(vector<vector<int>>& box, vector<int>& f, int id, int ki=0) {
-	pair<int, int> rval = { -INF, -1 };
+pair<ll, int> next_direction(vector<vector<int>>& box, mt19937_64& engine, vector<int>& f, int id, int ki, int lsz) {
+	pair<ll, int> rval = { -INF, -1 };
+	int slen = 100 - id - 1, len = min(slen, lsz);
+	vector<int> ids(len);
+	if (ki > 0) {
+		if (len == slen) iota(all(ids), 0);
+		else {
+			vector<bool> used(slen);
+			rep(i, len) {
+				int sid = engine() % slen;
+				while (used[sid]) sid = (sid + 1) % slen;
+				used[sid] = true;
+				ids[i] = sid;
+			}
+			sort(all(ids));
+		}
+	}
 	rep(rid, 4) {
 		auto nbox = box;
 		lean(nbox, rid);
-		if (id+ki+1>=100 || ki==0) rval = max(rval, { score_calc(nbox), rid });
+		if (id+1>=100 || ki==0) rval = max(rval, { score_calc(nbox), rid });
 		else {
 			ll sum = 0;
+			int tid = 0, tcnt = 0;
 			rep(i, 10) rep(j, 10) if (nbox[i][j] == 0) {
-				nbox[i][j] = f[id+1];
-				auto tval = next_direction(nbox, f, id+1, ki-1);
-				sum += tval.first;
-				nbox[i][j] = 0;
+				if (tid<len && ids[tid]==tcnt) {
+					nbox[i][j] = f[id+1];
+					auto tval = next_direction(nbox, engine, f, id+1, ki-1, lsz);
+					sum += tval.first;
+					nbox[i][j] = 0;
+					++tid;
+				}
+				++tcnt;
 			}
-			int tid = 100 - id - 1;
-			sum = (sum+(tid+1)/2) / tid;
-			rval = max(rval, { (int)sum, rid });
+			rval = max(rval, { sum, rid });
 		}
 	}
 	return rval;
 }
 
 int main() {
-	clock_t start = clock();
 	int n = 100;
+	random_device seed_gen;
+	mt19937_64 engine(seed_gen());
 	vector<int> f(n);
 	rep(i, n) cin >> f[i];
 	vector<vector<int>> box(10, vector<int>(10));
@@ -98,9 +118,8 @@ int main() {
 				break;
 			}
 		}
-		pair<int, int> mval = { -1, -1 };
-		int ti = ((double)(clock()-start)/CLOCKS_PER_SEC <= 1.0) ? 2 : 1;
-		mval = max(mval, next_direction(box, f, i, ti));
+		int ti = (i >= 95) ? 3 : 2;
+		pair<ll, int> mval = next_direction(box, engine, f, i, ti, 10);
 		int rid = mval.second;
 		lean(box, rid);
 		cout << rc[rid] << endl;

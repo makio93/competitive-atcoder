@@ -1,4 +1,4 @@
-// 自力
+// 
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -13,7 +13,7 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-const int INF = (int)(1e9);
+const ll INF = (ll)(1e18);
 
 const vector<char> rc = { 'F', 'R', 'B', 'L' };
 const vector<int> dy = { -1, 0, 1, 0 }, dx = { 0, 1, 0, -1 };
@@ -60,8 +60,8 @@ void lean(vector<vector<int>>& box, int rid) {
 	}
 	rep(i, (4-rid)%4) roll(box);
 }
-pair<int, int> next_direction(vector<vector<int>>& box, vector<int>& f, int id, int ki=0) {
-	pair<int, int> rval = { -INF, -1 };
+pair<ll, int> next_direction(vector<vector<int>>& box, vector<int>& f, int id, int ki=0) {
+	pair<ll, int> rval = { -INF, -1 };
 	rep(rid, 4) {
 		auto nbox = box;
 		lean(nbox, rid);
@@ -75,8 +75,7 @@ pair<int, int> next_direction(vector<vector<int>>& box, vector<int>& f, int id, 
 				nbox[i][j] = 0;
 			}
 			int tid = 100 - id - 1;
-			sum = (sum+(tid+1)/2) / tid;
-			rval = max(rval, { (int)sum, rid });
+			rval = max(rval, { sum, rid });
 		}
 	}
 	return rval;
@@ -98,9 +97,8 @@ int main() {
 				break;
 			}
 		}
-		pair<int, int> mval = { -1, -1 };
-		int ti = ((double)(clock()-start)/CLOCKS_PER_SEC <= 1.0) ? 2 : 1;
-		mval = max(mval, next_direction(box, f, i, ti));
+		int ti = (i >= 85) ? 2 : 1;
+		pair<ll, int> mval = next_direction(box, f, i, ti);
 		int rid = mval.second;
 		lean(box, rid);
 		cout << rc[rid] << endl;
