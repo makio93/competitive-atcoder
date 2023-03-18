@@ -1,4 +1,4 @@
-// 学習1回目,自力AC
+// 学習1回目,自力AC1
 
 #include <bits/stdc++.h>
 using namespace std;

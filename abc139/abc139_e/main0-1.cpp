@@ -1,4 +1,4 @@
-// 自力AC
+// 自力AC1
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
