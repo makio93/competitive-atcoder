@@ -1,4 +1,4 @@
-// 学習1回目,解説AC1
+// 学習2回目,自力AC
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -13,6 +13,8 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+const int INF = (int)(1e9);
+
 int main() {
     int x, y, z, k;
     cin >> x >> y >> z >> k;
@@ -20,14 +22,15 @@ int main() {
     rep(i, x) cin >> a[i];
     rep(i, y) cin >> b[i];
     rep(i, z) cin >> c[i];
-    sort(a.rbegin(), a.rend());
-    sort(b.rbegin(), b.rend());
-    sort(c.rbegin(), c.rend());
-    vector<ll> ab, abc;
-    rep(i, min(x, k)) rep(j, min(y, k)) ab.push_back(a[i]+b[j]);
-    sort(ab.rbegin(), ab.rend());
-    rep(i, min(k, (int)(ab.size()))) rep(j, min(z, k)) abc.push_back(ab[i]+c[j]);
-    sort(abc.rbegin(), abc.rend());
+    vector<ll> bc;
+    bc.reserve(y*z);
+    rep(i, y) rep(j, z) bc.push_back(b[i]+c[j]);
+    sort(all(bc), greater<ll>());
+    vector<ll> abc;
+    int bcl = min(k, y*z);
+    abc.reserve(x*bcl);
+    rep(i, x) rep(j, bcl) abc.push_back(a[i]+bc[j]);
+    sort(all(abc), greater<ll>());
     rep(i, k) cout << abc[i] << endl;
     return 0;
 }

@@ -1,4 +1,4 @@
-// 解説AC4
+// 学習1回目,解説AC4
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
