@@ -1,9 +1,9 @@
-// 本番AC
+// バチャ本番,自力AC2
 
 #include <bits/stdc++.h>
-//#include <atcoder/all>
+#include <atcoder/all>
 using namespace std;
-//using namespace atcoder;
+using namespace atcoder;
 
 using ll = long long;
 
@@ -13,11 +13,13 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+const int INF = (int)(1e9);
+
 int main() {
 	int n;
 	cin >> n;
-	if (n>=1 && n<=125) cout << 4 << endl;
-	else if (n>=126 && n<=211) cout << 6 << endl;
+	if (n <= 125) cout << 4 << endl;
+	else if (n <= 211) cout << 6 << endl;
 	else cout << 8 << endl;
 	return 0;
 }

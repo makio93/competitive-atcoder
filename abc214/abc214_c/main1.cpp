@@ -1,9 +1,9 @@
-// 本番AC
+// 解説AC
 
 #include <bits/stdc++.h>
-//#include <atcoder/all>
+#include <atcoder/all>
 using namespace std;
-//using namespace atcoder;
+using namespace atcoder;
 
 using ll = long long;
 
@@ -13,7 +13,10 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-const ll INF = (ll)(1e18);
+template <class T> bool chmax(T &a, const T &b) { if (a<b) { a=b; return 1; } return 0; }
+template <class T> bool chmin(T &a, const T &b) { if (b<a) { a=b; return 1; } return 0; }
+
+const ll LINF = (ll)(1e18);
 
 int main() {
 	int n;
@@ -21,17 +24,9 @@ int main() {
 	vector<int> s(n), t(n);
 	rep(i, n) cin >> s[i];
 	rep(i, n) cin >> t[i];
-	vector<ll> dp(2*n+1, INF);
-	rep(i, 2*n) {
-		if (i >= n) {
-			dp[i] = min(dp[i], dp[i-n]);
-			dp[i+1] = min(dp[i+1], dp[i-n+1]);
-		}
-		dp[i] = min(dp[i], (ll)t[i%n]);
-		dp[i+1] = min(dp[i+1], dp[i]+s[i%n]);
-	}
-	vector<ll> res(n);
-	rep(i, n) res[i] = min(dp[i], dp[i+n]);
-	rep(i, n) cout << res[i] << endl;
+	vector<ll> dp(n);
+	rep(i, n) dp[i] = t[i];
+	rep(i, n*2-1) chmin(dp[(i+1)%n], dp[i%n]+s[i%n]);
+	rep(i, n) cout << dp[i] << endl;
 	return 0;
 }

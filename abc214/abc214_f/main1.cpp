@@ -1,9 +1,9 @@
-// 本番AC
+// 解説AC
 
 #include <bits/stdc++.h>
-//#include <atcoder/all>
+#include <atcoder/all>
 using namespace std;
-//using namespace atcoder;
+using namespace atcoder;
 
 using ll = long long;
 
@@ -13,11 +13,20 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+const ll mod = (ll)(1e9) + 7;
+
 int main() {
-	int n;
-	cin >> n;
-	if (n>=1 && n<=125) cout << 4 << endl;
-	else if (n>=126 && n<=211) cout << 6 << endl;
-	else cout << 8 << endl;
+	string s;
+	cin >> s;
+	int n = s.length();
+	vector<ll> dp(n+2);
+	dp[0] = 1;
+	rep(i, n) rep3r(j, -1, i) {
+		dp[i+2] = (dp[i+2] + dp[j+1]) % mod;
+		if (j>=0 && s[i]==s[j]) break;
+	}
+	ll res = 0;
+	rep3(i, 2, n+2) res = (res + dp[i]) % mod;
+	cout << res << endl;
 	return 0;
 }
