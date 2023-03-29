@@ -1,4 +1,4 @@
-// 本番AC
+// 学習1回目,バチャ本番,自力AC
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -13,16 +13,18 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+const int INF = (int)(1e9);
+
 int main() {
-	ll k;
-	cin >> k;
-	string res;
-	while (k > 0LL) {
-		if (k%2 == 1) res += '2';
-		else res += '0';
-		k /= 2;
+	int n, k;
+	cin >> n >> k;
+	vector<int> p(n);
+	rep(i, n) cin >> p[i];
+	priority_queue<int, vector<int>, greater<int>> pq;
+	rep(i, n) {
+		pq.push(p[i]);
+		if ((int)(pq.size()) > k) pq.pop();
+		if (i >= k-1) cout << pq.top() << endl;
 	}
-	reverse(all(res));
-	cout << res << endl;
 	return 0;
 }

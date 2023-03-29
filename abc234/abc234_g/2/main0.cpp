@@ -1,4 +1,4 @@
-// 復習2,誤答
+// 学習2回目,バチャ本番,自力WA
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -14,44 +14,34 @@ using ll = long long;
 #define all(x) (x).begin(), (x).end()
 
 const int INF = (int)(2e9);
-using mint = modint998244353;
+const ll mod = 998244353LL;
 
 int main() {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    rep(i, n) cin >> a[i];
-    vector<mint> dp(n+1);
-    dp[0] = 1;
-    stack<pair<int, mint>> st1, st2;
-    rep(i, n) {
-        mint pcnt = (i-1 >= 0) ? mint(2).pow(i-1) : 1;
-        mint stcnt1 = pcnt, stcnt2 = pcnt, 
-            nval1 = dp[i] * a[i] * pcnt, nval2 = dp[i] * a[i] * pcnt;
-        while (!st1.empty() && (i+1>=n || a[st1.top().first]<=a[i])) {
-            stcnt1 += st1.top().second;
-            if (i+1 >= n) nval1 += dp[st1.top().first] * max(a[i], a[st1.top().first]) * st1.top().second;
-            else nval1 += dp[st1.top().first] * a[i] * st1.top().second;
-            st1.pop();
-        }
-        while (!st2.empty() && (i+1>=n || a[st2.top().first]>=a[i])) {
-            stcnt2 += st2.top().second;
-            if (i+1 >= n) nval2 += dp[st2.top().first] * min(a[i], a[st2.top().first]) * st2.top().second;
-            else nval2 += dp[st2.top().first] * a[i] * st2.top().second;
-            st2.pop();
-        }
-        if (st1.empty()) {
-            stcnt1 += 1;
-            nval1 += a[i];
-        }
-        if (st2.empty()) {
-            stcnt2 += 1;
-            nval2 += a[i];
-        }
-        st1.emplace(i, stcnt1);
-        st2.emplace(i, stcnt2);
-        dp[i+1] += nval1 - nval2;
-    }
-    cout << dp[n].val() << endl;
-    return 0;
+	int n;
+	cin >> n;
+	vector<int> a(n);
+	rep(i, n) cin >> a[i];
+	vector<ll> dp(n+1);
+	stack<pair<int, ll>> rst, lst;
+	rst.emplace(INF, 1);
+	lst.emplace(0, 1);
+	dp[0] = 1;
+	rep(i, n) {
+		ll rval = 0, lval = 0;
+		while (rst.top().first <= a[i]) {
+			rval = (rval + rst.top().second) % mod;
+			rst.pop();
+		}
+		rval = (rval + rst.top().second) % mod;
+		while (lst.top().first >= a[i]) {
+			lval = (lval + lst.top().second) % mod;
+			lst.pop();
+		}
+		lval = (lval + lst.top().second) % mod;
+		dp[i+1] = ((rval - lval + mod) % mod * a[i]) % mod;
+		rst.emplace(a[i], (rval+dp[i+1])%mod);
+		lst.emplace(a[i], (lval+dp[i+1])%mod);
+	}
+	cout << dp[n] << endl;
+	return 0;
 }
