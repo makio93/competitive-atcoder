@@ -1,0 +1,34 @@
+// 学習1回目,解説AC3
+
+#include <bits/stdc++.h>
+#include <atcoder/all>
+using namespace std;
+using namespace atcoder;
+
+using ll = long long;
+
+#define rep(i, n) for (int i=0; i<(int)(n); ++(i))
+#define rep3(i, m, n) for (int i=(m); (i)<(int)(n); ++(i))
+#define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
+#define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
+#define all(x) (x).begin(), (x).end()
+
+const int INF = (int)(1.1e9);
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    rep(i, n) cin >> a[i];
+    vector<bool> exists(n+1);
+    rep(i, n) if (a[i] <= n) exists[a[i]] = true;
+    int res = 0, cost = 0;
+    rep3(i, 1, n+1) {
+        if (exists[i]) ++cost;
+        else cost += 2;
+        if (cost <= n) res = i;
+        else break;
+    }
+    cout << res << endl;
+    return 0;
+}
