@@ -1,4 +1,4 @@
-// 学習1回目,解説AC
+// 学習1回目,解説AC1
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
