@@ -1,4 +1,4 @@
-// 解説,WA
+// 解説AC
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -41,7 +41,7 @@ int main() {
         mli = max(mli, pq.top().second);
         while (!pq.empty() && (pq.top().second <= mli || useds.find(pq.top().first) != useds.end())) pq.pop();
         if ((int)(res.size()) == m) break;
-        if (pq.empty() && fi+1<m) {
+        if (useds.find(a[fis[fi]]) != useds.end()) {
             do {
                 ++fi;
                 rep3(i, fis[fi-1]+1, fis[fi]+1) pq.emplace(a[i], i);
