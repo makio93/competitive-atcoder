@@ -40,12 +40,9 @@ int main() {
         useds.insert(pq.top().first);
         mli = max(mli, pq.top().second);
         while (!pq.empty() && (pq.top().second <= mli || useds.find(pq.top().first) != useds.end())) pq.pop();
-        if ((int)(res.size()) == m) break;
-        if (useds.find(a[fis[fi]]) != useds.end()) {
-            do {
-                ++fi;
-                rep3(i, fis[fi-1]+1, fis[fi]+1) pq.emplace(a[i], i);
-            } while (useds.find(a[fis[fi]]) != useds.end());
+        while (fi < m && useds.find(a[fis[fi]]) != useds.end()) {
+            ++fi;
+            rep3(i, fis[fi-1]+1, fis[fi]+1) pq.emplace(a[i], i);
         }
     }
     rep(i, m) cout << (res[i]+1) << (i<m-1?' ':'\n');
