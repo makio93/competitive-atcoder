@@ -1,4 +1,4 @@
-// 終了後,自力WA
+// 終了後,自力WA1
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
